@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專注模式 - ReadHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="bg-light text-center">
+  <div class="container py-5">
+    <h1 class="mb-4">專注模式</h1>
+    <p class="lead">按下開始，專心讀書，離開前記得儲存記錄！</p>
+
+    <div class="display-3 my-4" id="focusTimer">00:00:00</div>
+
+    <div class="btn-group">
+      <button id="startBtn" class="btn btn-success">開始</button>
+      <button id="pauseBtn" class="btn btn-warning">暫停</button>
+      <button id="endBtn" class="btn btn-primary">儲存記錄</button>
+    </div>
+
+    <div class="mt-4">
+      <a href="dashboard.html" class="btn btn-link">返回主頁</a>
+    </div>
+  </div>
+
+  <script>
+    let timer = null;
+    let seconds = 0;
+    const display = document.getElementById('focusTimer');
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const endBtn = document.getElementById('endBtn');
+
+    function updateDisplay() {
+      const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(seconds % 60).padStart(2, '0');
+      display.textContent = `${hrs}:${mins}:${secs}`;
+    }
+
+    startBtn.onclick = () => {
+      if (timer) return;
+      timer = setInterval(() => {
+        seconds++;
+        updateDisplay();
+      }, 1000);
+    };
+
+    pauseBtn.onclick = () => {
+      clearInterval(timer);
+      timer = null;
+    };
+
+    endBtn.onclick = () => {
+      clearInterval(timer);
+      timer = null;
+      // 讀取目前的已累積時間（秒）
+      const prev = parseInt(localStorage.getItem('studySeconds') || '0');
+      localStorage.setItem('studySeconds', prev + seconds);
+      alert("本次學習時間已儲存！");
+      seconds = 0;
+      updateDisplay();
+    };
+
+    updateDisplay();
+  </script>
+</body>
+</html>

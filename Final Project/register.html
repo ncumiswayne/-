@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>註冊 - ReadHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div class="container mt-5" style="max-width: 400px;">
+    <h2 class="text-center mb-4">註冊 ReadHub</h2>
+    <form id="registerForm">
+      <div class="mb-3">
+        <label for="username" class="form-label">使用者名稱</label>
+        <input type="text" class="form-control" id="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">電子郵件</label>
+        <input type="email" class="form-control" id="email" placeholder="example@mail.com" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">密碼</label>
+        <input type="password" class="form-control" id="password" required>
+      </div>
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">確認密碼</label>
+        <input type="password" class="form-control" id="confirmPassword" required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success">建立帳號</button>
+      </div>
+    </form>
+    <p class="text-center mt-3">
+      已經有帳號了？<a href="login.html">登入</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert('兩次密碼輸入不一致');
+        return;
+      }
+
+      // TODO: 呼叫後端 API 註冊新用戶
+      console.log('註冊資料:', { username, email, password });
+      alert('模擬註冊成功！');
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
